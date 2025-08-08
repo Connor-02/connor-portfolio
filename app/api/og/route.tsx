@@ -11,7 +11,7 @@ export async function GET(req: Request) {
     searchParams.get("title") ||
     `${siteConfig.name} — ${siteConfig.role}`;
 
-  return new ImageResponse(
+  return ImageResponse(
     (
       <div
         style={{
