@@ -1,13 +1,15 @@
-import { ImageResponse } from "next/og";
+import { ImageResponse } from "next/server";
 import { siteConfig } from "@/site.config";
 
 export const runtime = "edge";
-export const contentType = "image/png";
-export const size = { width: 1200, height: 630 };
+
+const size = { width: 1200, height: 630 };
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const title = searchParams.get("title") || `${siteConfig.name} — ${siteConfig.role}`;
+  const title =
+    searchParams.get("title") ||
+    `${siteConfig.name} — ${siteConfig.role}`;
 
   return new ImageResponse(
     (
@@ -23,11 +25,15 @@ export async function GET(req: Request) {
           color: "white",
           fontWeight: 800,
           padding: "40px",
+          textAlign: "center",
         }}
       >
         {title}
       </div>
     ),
-    { ...size }
+    {
+      ...size,
+      contentType: "image/png",
+    }
   );
 }
